@@ -1,6 +1,9 @@
 import React from 'react';
 
 import BuildControl from './BuildControl/BuildControl'
+
+import classes from './BuildControls.module.css'
+
 const buildControls = (props) => {
     const controls = [
         {label:"Salad",type:"salad"},
@@ -17,7 +20,8 @@ const buildControls = (props) => {
                                                     removed = {() =>props.removeIngredient(ctrl.type)}                                                 
                                                     />);
     return ( 
-        <div>
+        <div className = {classes.BuildControls} >
+            <p> Price = <strong>{props.price}</strong> </p>
             {controlWidgets}
         </div>
     );
