@@ -23,6 +23,7 @@ const buildControls = (props) => {
         <div className = {classes.BuildControls} >
             <p> Price = <strong>{props.price}</strong> </p>
             {controlWidgets}
+            <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER NOW</button>
         </div>
     );
 }
