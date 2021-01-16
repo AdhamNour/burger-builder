@@ -13,7 +13,8 @@ const buildControls = (props) => {
     const controlWidgets = controls.map(ctrl => <BuildControl 
                                                     label={ctrl.label} 
                                                     key={ctrl.label}
-                                                    added = {() =>props.addIngredient(ctrl.type)}                                                    
+                                                    added = {() =>props.addIngredient(ctrl.type)}   
+                                                    removed = {() =>props.removeIngredient(ctrl.type)}                                                 
                                                     />);
     return ( 
         <div>
