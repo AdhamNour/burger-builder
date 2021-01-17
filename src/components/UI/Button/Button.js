@@ -13,7 +13,7 @@ const button = (props) => {
             ].join(' ')
             }
         >
-            props.children
+            {props.children}
         </button>
     );
 }
