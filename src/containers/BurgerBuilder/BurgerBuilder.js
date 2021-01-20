@@ -5,6 +5,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Aux from '../../hoc/Auxiliary'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery'
+import axios from '../../axios-orders'
 
 const INGREDIENTS_PRICE = {
     salad : 0.5,
@@ -78,7 +79,20 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('Purchase Continue')
+        //alert('Purchase Continue')
+        const order = {
+            ingredients : this.state.ingredients,
+            totalPrice: this.state.totalPrice, //this is not for real application
+            customerID : 5, //this is dummy data
+        }
+        axios.post('/orders.json',order)
+        .then((response) => {
+            alert('sotring done');
+            console.log(response);
+        }).catch((error) => {
+            alert('error while sotring you order, please try again')
+            console.log(error);
+        });
     }
 
     render() {
