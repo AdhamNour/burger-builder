@@ -6,6 +6,7 @@ import Aux from '../../hoc/Auxiliary'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery'
 import axios from '../../axios-orders'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 const INGREDIENTS_PRICE = {
     salad : 0.5,
@@ -25,6 +26,7 @@ class BurgerBuilder extends Component {
         totalPrice : 4,
         purchasable : false,
         purchasing : false,
+        Loading: false,
     }
 
     updatePurchasable = (ingredients) => {
@@ -85,26 +87,37 @@ class BurgerBuilder extends Component {
             totalPrice: this.state.totalPrice, //this is not for real application
             customerID : 5, //this is dummy data
         }
+        this.setState({Loading: true});
         axios.post('/orders.json',order)
         .then((response) => {
-            alert('sotring done');
             console.log(response);
+            this.setState({Loading: false,purchasing: false});
+
         }).catch((error) => {
-            alert('error while sotring you order, please try again')
+            this.setState({Loading: false,purchasing: false});
             console.log(error);
         });
     }
 
+    
+
+
+
     render() {
-        return (
-            <Aux>
-                <Modal show={this.state.purchasing} cancelPurchase ={this.cancelPurchaseHandler} >
-                    <OrderSummery 
+        let modalContent = <OrderSummery 
                         ingredients = {this.state.ingredients} 
                         continue ={this.purchaseContinueHandler} 
                         cancel = {this.cancelPurchaseHandler} 
                         price = {this.state.totalPrice}
                         />
+
+        if(this.state.Loading){
+            modalContent = <Spinner />
+        }
+        return (
+            <Aux>
+                <Modal show={this.state.purchasing} cancelPurchase ={this.cancelPurchaseHandler} >
+                    {modalContent}
                 </Modal>
                 <Burger ingredient = { this.state.ingredients} />
                 <BuildControls 
