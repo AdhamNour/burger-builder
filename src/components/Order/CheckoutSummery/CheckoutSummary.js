@@ -7,6 +7,8 @@ import Button from '../../UI/Button/Button'
 import classes from './CheckoutSummary.module.css'
 
 const checkoutSummary = (props) => {
+    console.log('[checkoutSummary]')
+    console.log(props)
     return (
         <div className={classes.CheckoutSummary} >
             <h1>We hope that it would test well</h1>

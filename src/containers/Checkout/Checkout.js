@@ -20,7 +20,21 @@ class Checkout extends Component {
         this.props.history.replace('/checkout/contact-data');
     }
 
+    componentDidMount() {
+        console.log('[checkout.js]')
+        console.log(this.props)
+        const query = new URLSearchParams(this.props.location.search);
+        const _ingredients ={};
+        for(let params of query.entries()) {
+            _ingredients[params[0]]=params[1];
+        }
+        console.log(_ingredients)
+
+        this.setState({ingredient: _ingredients});
+    }
+
     render() {
+        console.log(this.state)
         return (
             <div>
                 <CheckoutSummary 

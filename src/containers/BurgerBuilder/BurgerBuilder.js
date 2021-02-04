@@ -151,7 +151,6 @@ class BurgerBuilder extends Component {
         />
       );
     }
-    console.log(this.state);
     return (
       <Aux>
         <Modal
