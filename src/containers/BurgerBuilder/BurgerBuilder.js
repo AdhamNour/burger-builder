@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     Loading: false,
-    error: false
+    error: false,
   };
 
   updatePurchasable = (ingredients) => {
@@ -95,15 +95,30 @@ class BurgerBuilder extends Component {
     //     this.setState({ Loading: false, purchasing: false });
     //     console.log(error);
     //   });
-    this.props.history.push('/chechout')
+    const query = [];
+    for (let i in this.state.ingredients) {
+      query.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    const queryString = query.join('&')
+    this.props.history.push({
+      pathname: "/checkout",
+      search: queryString
+    });
   };
 
   componentDidMount() {
-    axios.get("/ingredients.json").then((response) => {
-      this.setState({ ingredients: response.data });
-    }).catch(error => {
-        this.setState({error:true});
-    });
+    axios
+      .get("/ingredients.json")
+      .then((response) => {
+        this.setState({ ingredients: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: true });
+      });
   }
 
   render() {
@@ -115,7 +130,9 @@ class BurgerBuilder extends Component {
 
     let burger = <Spinner />;
     if (this.state.ingredients) {
-      burger = this.state.error? (<p>There's an error loading ingredents</p>) :  (
+      burger = this.state.error ? (
+        <p>There's an error loading ingredents</p>
+      ) : (
         <Aux>
           <Burger ingredient={this.state.ingredients} />
           <BuildControls
@@ -137,7 +154,7 @@ class BurgerBuilder extends Component {
         />
       );
     }
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Aux>
         <Modal
