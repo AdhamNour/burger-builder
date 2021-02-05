@@ -104,7 +104,7 @@ class BurgerBuilder extends Component {
       );
     }
     const queryString = query.join("&");
-    this.props.history.push({ pathname: "/chechout", search: queryString });
+    this.props.history.push({ pathname: "/checkout", search: queryString });
   };
 
   componentDidMount() {
